@@ -3,7 +3,7 @@ describe("Sidebar Navigation", () => {
     cy.visit("http://localhost:3000/dashboard");
   });
 
-  context.only("desktop resolution", () => {
+  context("desktop resolution", () => {
     beforeEach(() => {
       cy.viewport(1025, 900);
     });
@@ -36,14 +36,14 @@ describe("Sidebar Navigation", () => {
       cy.get("nav").contains("Collapse").click();
 
       // check that links still exist and are functionable
-      cy.get("nav").find("a").should("have.length", 5).eq(1).click();
+      cy.get("nav").find("a").should("have.length", 6).eq(1).click();
       cy.url().should("eq", "http://localhost:3000/dashboard/issues");
 
       // check that text is not rendered
       cy.get("nav").contains("Issues").should("not.exist");
     });
 
-    it.only("mailto parameters are correct", () => {
+    it("mailto parameters are correct", () => {
       const mailtoUri = encodeURI(
         "mailto:support@prolog-app.com?subject=Support Request:",
       );
@@ -88,7 +88,7 @@ describe("Sidebar Navigation", () => {
       isInViewport("nav");
 
       // check that all links are rendered
-      cy.get("nav").find("a").should("have.length", 5);
+      cy.get("nav").find("a").should("have.length", 6);
 
       // Support button should be rendered but Collapse button not
       cy.get("nav").contains("Support").should("exist");
