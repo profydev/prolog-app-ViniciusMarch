@@ -3,7 +3,7 @@ describe("Sidebar Navigation", () => {
     cy.visit("http://localhost:3000/dashboard");
   });
 
-  context.only("desktop resolution", () => {
+  context("desktop resolution", () => {
     beforeEach(() => {
       cy.viewport(1025, 900);
     });
@@ -43,7 +43,7 @@ describe("Sidebar Navigation", () => {
       cy.get("nav").contains("Issues").should("not.exist");
     });
 
-    it.only("mailto parameters are correct", () => {
+    it("mailto parameters are correct", () => {
       const mailtoUri = encodeURI(
         "mailto:support@prolog-app.com?subject=Support Request:",
       );
