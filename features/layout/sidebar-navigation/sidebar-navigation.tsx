@@ -16,10 +16,20 @@ const menuItems = [
   { text: "Settings", iconSrc: "/icons/settings.svg", href: Routes.settings },
 ];
 
+enum EmailProps {
+  MAILTO = "support@prolog-app.com",
+  SUBJECT = "Support Request:",
+}
+
 export function SidebarNavigation() {
   const router = useRouter();
   const { isSidebarCollapsed, toggleSidebar } = useContext(NavigationContext);
   const [isMobileMenuOpen, setMobileMenuOpen] = useState(false);
+
+  const mailtoUri = encodeURI(
+    `mailto:${EmailProps.MAILTO}?subject=${EmailProps.SUBJECT}`,
+  );
+
   return (
     <div
       className={classNames(
@@ -79,11 +89,12 @@ export function SidebarNavigation() {
             ))}
           </ul>
           <ul className={styles.list}>
-            <MenuItemButton
+            <MenuItemLink
               text="Support"
               iconSrc="/icons/support.svg"
               isCollapsed={isSidebarCollapsed}
-              onClick={() => alert("Support")}
+              href={mailtoUri}
+              target="_blank"
             />
             <MenuItemButton
               text="Collapse"

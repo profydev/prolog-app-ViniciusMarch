@@ -3,7 +3,7 @@ describe("Sidebar Navigation", () => {
     cy.visit("http://localhost:3000/dashboard");
   });
 
-  context("desktop resolution", () => {
+  context.only("desktop resolution", () => {
     beforeEach(() => {
       cy.viewport(1025, 900);
     });
@@ -41,6 +41,14 @@ describe("Sidebar Navigation", () => {
 
       // check that text is not rendered
       cy.get("nav").contains("Issues").should("not.exist");
+    });
+
+    it.only("mailto parameters are correct", () => {
+      const mailtoUri = encodeURI(
+        "mailto:support@prolog-app.com?subject=Support Request:",
+      );
+
+      cy.get("nav").contains("Support").should("have.attr", "href", mailtoUri);
     });
   });
 
