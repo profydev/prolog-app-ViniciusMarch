@@ -1,5 +1,6 @@
 import capitalize from "lodash/capitalize";
 import mockProjects from "../fixtures/projects.json";
+import { ProjectStatus } from "../../api/projects.types";
 
 describe("Project List", () => {
   beforeEach(() => {
@@ -32,10 +33,32 @@ describe("Project List", () => {
           cy.wrap($el).contains(languageNames[index]);
           cy.wrap($el).contains(mockProjects[index].numIssues);
           cy.wrap($el).contains(mockProjects[index].numEvents24h);
-          cy.wrap($el).contains(capitalize(mockProjects[index].status));
           cy.wrap($el)
             .find("a")
             .should("have.attr", "href", "/dashboard/issues");
+        });
+    });
+
+    it("shows correct badges status and color", () => {
+      const statusNames = {
+        [ProjectStatus.info]: "stable",
+        [ProjectStatus.warning]: "warning",
+        [ProjectStatus.error]: "critical",
+      };
+
+      const statusColors = {
+        [ProjectStatus.info]: "rgb(2, 122, 72)",
+        [ProjectStatus.warning]: "rgb(181, 71, 8)",
+        [ProjectStatus.error]: "rgb(180, 35, 24)",
+      };
+
+      cy.get("main")
+        .find("li")
+        .each(($el, index) => {
+          const statusName = mockProjects[index].status as ProjectStatus;
+          cy.wrap($el)
+            .contains(capitalize(statusNames[statusName]))
+            .and("have.css", "color", statusColors[statusName]);
         });
     });
   });
