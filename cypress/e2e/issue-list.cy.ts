@@ -82,5 +82,23 @@ describe("Issue List", () => {
       cy.wait(1500);
       cy.contains("Page 2 of 3");
     });
+
+    it("shows the correct events and users list", () => {
+      cy.get("main")
+        .find("tbody")
+        .find("tr")
+        .each(($el, index) => {
+          cy.wrap($el)
+            .find("td")
+            .should("have.length", 4)
+            .eq(2)
+            .contains(mockIssues1.items[index].numEvents);
+          cy.wrap($el)
+            .find("td")
+            .should("have.length", 4)
+            .eq(3)
+            .contains(mockIssues1.items[index].numUsers);
+        });
+    });
   });
 });
