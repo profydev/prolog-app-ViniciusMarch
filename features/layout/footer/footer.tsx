@@ -1,6 +1,9 @@
 import styles from "./footer.module.scss";
+import packageJson from "../../../package.json";
 
 export function Footer() {
+  const appVersion = packageJson.version;
+
   return (
     <div className={styles.container}>
       <ul className={styles.linkList}>
@@ -29,7 +32,7 @@ export function Footer() {
         {/* eslint-disable-next-line @next/next/no-img-element */}
         <img src="/icons/logo-small.svg" alt="logo" />
       </div>
-      <p className={styles.appVersion}>Version: 14.5.1</p>
+      <p className={styles.appVersion}>Version: {appVersion}</p>
     </div>
   );
 }
