@@ -5,7 +5,7 @@ export function Footer() {
   const appVersion = packageJson.version;
 
   return (
-    <div className={styles.container}>
+    <footer className={styles.container}>
       <ul className={styles.linkList}>
         <li>
           <a className={styles.anchor} href="#">
@@ -33,6 +33,6 @@ export function Footer() {
         <img src="/icons/logo-small.svg" alt="logo" />
       </div>
       <p className={styles.appVersion}>Version: {appVersion}</p>
-    </div>
+    </footer>
   );
 }
